@@ -1,59 +1,70 @@
 package com.lukassestic.interviewQuestions.q6;
 
+
 /**
  * Implement a method to perform basic string compression using the counts of repeated characters
  * eg. aabcccccaaa -> a2b1c5a3
  * If the resulting compression is not smaller than the original just return the original string
  *
  * Assumption: String will only contain Aa - Zz characters
+ *
+ * Time complexity: O(n)
  */
 public class Q6 {
-    private static int asciiZero = 48;
 
+    private static int compressionLength(String ofString) {
+        int compressionLength = 0, count = 0;
+        char observedChar = ofString.charAt(0);
 
-    private static String countCompress(String string) {
-        char[] charArray = string.toCharArray();
-        int[] values = new int[charArray.length];
-
-        char observedChar = charArray[0];
-        int count = 0;
-        int index = 0;
-        for(char c: charArray) {
-
-            if (index >= values.length - 2) {
-                return string;
-            }
-
-            if (c != observedChar) {
-                values[index] = observedChar;
-                values[index + 1] = count;
-
-                observedChar = c;
-                count = 1;
-
-                index += 2;
+        for(int i = 0 ; i < ofString.length(); i++) {
+            if (ofString.charAt(i) != observedChar || i == ofString.length() - 1) {
+                compressionLength += 1 + String.valueOf(count).length();
+                observedChar = ofString.charAt(i);
                 continue;
             }
-
             count++;
         }
 
-        values[index] = observedChar;
-        values[index + 1] = count;
+        return compressionLength;
+    }
 
-        StringBuilder s = new StringBuilder();
+    private static String compress(String string, int compressionLength) {
+        StringBuilder s = new StringBuilder(compressionLength);
 
-        for (int i = 0; i < values.length && values[i] != 0; i+=2) {
-            s.append((char) values[i]);
-            s.append(values[i + 1]);
+        int count = 0;
+        char observedChar = string.charAt(0);
+
+        for(int i = 0 ; i < string.length(); i++) {
+            if (string.charAt(i) != observedChar) {
+                s.append(observedChar);
+                s.append(count);
+                observedChar = string.charAt(i);
+                count = 1;
+                continue;
+            }
+            count++;
         }
+
+        s.append(observedChar);
+        s.append(count);
 
         return s.toString();
     }
 
+    private static String countCompress(String string) {
+        int compressionLength = compressionLength(string);
+
+        if (compressionLength >= string.length()) {
+            return string;
+        }
+
+        return compress(string, compressionLength);
+    }
+
     public static void main(String[] args) {
-        String[] testStrings = {"aabcccccaaa", "aaa"};
+        String[] testStrings = {"aabcccccaaa", "aaa", "aaaaaaaaaaaaaaaaaaaa"};
         System.out.println(countCompress(testStrings[0]));
         System.out.println(countCompress(testStrings[1]));
+        System.out.println(countCompress(testStrings[2]));
     }
 }
