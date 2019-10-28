@@ -23,7 +23,14 @@ public class Q2 {
     }
 
     public static void main(String[] args) {
+        String[] testLhs = {"god", "race", "word"};
+        String[] testRhs = {"dog", "care", "with"};
 
+        for (int i = 0; i < testLhs.length; i++) {
+            String lhs = testLhs[i];
+            String rhs = testRhs[i];
+            System.out.println(lhs + " - " + rhs + ": " + arePermutations(lhs, rhs));
+        }
     }
 
 }
