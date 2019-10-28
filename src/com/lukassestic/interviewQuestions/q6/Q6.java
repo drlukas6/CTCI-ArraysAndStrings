@@ -62,9 +62,9 @@ public class Q6 {
     }
 
     public static void main(String[] args) {
-        String[] testStrings = {"aabcccccaaa", "aaa", "aaaaaaaaaaaaaaaaaaaa"};
-        System.out.println(countCompress(testStrings[0]));
-        System.out.println(countCompress(testStrings[1]));
-        System.out.println(countCompress(testStrings[2]));
+        String[] testStrings = {"aabcccccaaa", "aaa", "aaaaaaaaaaaaaaaaaaaa", "aa"};
+        for (String testString : testStrings) {
+            System.out.println(countCompress(testString));
+        }
     }
 }
