@@ -5,7 +5,6 @@ package com.lukassestic.interviewQuestions.q9;
  * eg. Word "lukas" has a rotation "ukasl"
  *
  * Time complexity: O(n)
- * Space complexity: O(1)
  */
 public class Q9 {
 
